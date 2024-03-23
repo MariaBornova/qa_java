@@ -1,4 +1,3 @@
-import com.example.Animal;
 import com.example.Feline;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,26 +11,31 @@ public class FelineTest {
 
     @Spy
     private Feline feline;
-    private final Animal animal = new Animal();
 
     @Test
-    public void EatMeat() throws Exception{
-        Assert.assertEquals(animal.getFood("Хищник"), feline.eatMeat());
+    public void eatMeat() throws Exception {
+        feline.eatMeat();
+        Mockito.verify(feline, Mockito.times(1)).getFood("Хищник");
     }
 
+
     @Test
-    public void GetFamily() {
+    public void getFamily() {
+        Feline feline = new Feline();
         Assert.assertEquals("Кошачьи", feline.getFamily());
     }
 
     @Test
-    public void GetKittensNoParam() {
-        Assert.assertEquals(1, feline.getKittens());
+    public void getKittensNoParam() {
+        feline.getKittens();
+        Mockito.verify(feline, Mockito.times(1)).getKittens(1);
     }
 
     @Test
-    public void GetKittensWithParam() {
-        feline.getKittens(1);
-        Mockito.verify(feline, Mockito.times(1)).getKittens(1);
+    public void getKittensWithParam() {
+        Feline feline = new Feline();
+        Assert.assertEquals(1, feline.getKittens());
     }
+
+
 }
